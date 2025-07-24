@@ -20,3 +20,16 @@ module "connect_instance" {
 }
 
 # Other modules will go here (contact flows, queues, etc.)
+
+module "s3_bucket" {
+  source = "./modules/s3_bucket"
+  bucket_name = var.s3_bucket_name
+  environment = var.environment
+}
+
+module "connect_role" {
+  source = "./modules/iam_role"
+  role_name = "${var.connect_instance_name}-connect-role"
+  service = "connect.amazonaws.com"
+  actions = ["sts:AssumeRole"]
+}
