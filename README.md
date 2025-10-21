@@ -1,48 +1,59 @@
-# Amazon Connect Contact Center Infrastructure as Code (IaC)
+# Amazon Connect Contact Center Infrastructure as Code
 
 [![AWS](https://img.shields.io/badge/AWS-Amazon%20Connect-orange?style=flat-square)](https://aws.amazon.com/connect/)
-[![Infrastructure as Code](https://img.shields.io/badge/Infrastructure%20as%20Code-Terraform%2FCF-blue?style=flat-square)](https://www.terraform.io/)
+[![Infrastructure as Code](https://img.shields.io/badge/Infrastructure%20as%20Code-Terraform-blue?style=flat-square)](https://www.terraform.io/)
 [![License: MIT-0](https://img.shields.io/badge/License-MIT--0-brightgreen.svg)](LICENSE)
 
-This repository provides Infrastructure as Code (IaC) templates for deploying and managing Amazon Connect contact centers, enabling consistent, repeatable deployments and automated infrastructure management.
+Terraform modules for deploying and managing Amazon Connect contact center infrastructure. Enables consistent, repeatable deployments with version-controlled infrastructure.
 
-**What is Amazon Connect?**
+## Overview
 
-[Amazon Connect](https://aws.amazon.com/connect/) is a cloud-based omnichannel contact center offering scalability, flexibility, AI-powered experiences, and pay-as-you-go pricing.
+[Amazon Connect](https://aws.amazon.com/connect/) is a cloud-based omnichannel contact center service. This repository provides reusable Terraform modules for:
 
-**Key Benefits of IaC:**
+* Connect instances
+* Contact flows
+* Queues
+* IAM roles
+* Lambda functions (e.g., transcription and sentiment analysis)
+* S3 buckets for storage
 
-*   Consistency across environments
-*   Version control for infrastructure
-*   Automation of deployments
-*   Collaboration among teams
+## Quick Start
 
-**What's Included:**
+1. **Prerequisites**: AWS CLI configured with appropriate credentials and Terraform installed
+2. **Clone**: `git clone <repository-url>`
+3. **Configure**: Customize variables in `connect/terraform/variables.tf`
+4. **Deploy**: Navigate to `connect/terraform/` and run `terraform init && terraform apply`
 
-*   **[Terraform](./terraform/):** (***Recommended***) Terraform configurations for Connect resources.
+## Repository Structure
 
-**Getting Started**
+```
+├── connect/terraform/          # Terraform root module
+│   ├── modules/                # Reusable Terraform modules
+│   │   ├── connect_instance/   # Amazon Connect instance
+│   │   ├── contact_flow/       # Contact flow definitions
+│   │   ├── queue/              # Contact queues
+│   │   ├── iam_role/           # IAM roles and policies
+│   │   ├── lambda_function/    # Lambda functions
+│   │   └── s3_bucket/          # S3 bucket resources
+│   └── main.tf                 # Root module configuration
+├── lambda/                     # Lambda function source code
+│   └── transcribe_sentiment/   # Transcription and sentiment analysis
+└── scripts/                    # Deployment scripts
+```
 
-1.  Clone: `git clone [https://github.com/thewizardofaws/amazon-connect-contact-center/]`
-2.  Choose IaC: Terraform (recommended) or CloudFormation.
-3.  Configure AWS credentials.
-4.  Customize templates.
-5.  Deploy.
-
-**Contributing**
+## Contributing
 
 See [CONTRIBUTIONS.md](CONTRIBUTIONS.md) for guidelines.
 
-**References**
+## Security
 
-*   [AWS AMER RESOURCES - Re:Invent Your Contact Center with Amazon Connect](https://amer.resources.awscloud.com/contact-center/maximizing-amazon-connect-cl-evaluation-technical)
+See [CONTRIBUTIONS.md#security-issue-notifications](CONTRIBUTIONS.md#security-issue-notifications) for reporting security issues.
 
-*   [AWS GitHub Repos for Amazon Connect](https://github.com/amazon-connect)
+## Resources
 
-**Security**
+* [AWS AMER Resources - Re:Invent Your Contact Center with Amazon Connect](https://amer.resources.awscloud.com/contact-center/maximizing-amazon-connect-cl-evaluation-technical)
+* [AWS GitHub Repos for Amazon Connect](https://github.com/amazon-connect)
 
-See [CONTRIBUTIons.md#security-issue-notifications](CONTRIBUTIons.md#security-issue-notifications).
-
-**License**
+## License
 
 MIT-0 License. See [LICENSE](LICENSE).
