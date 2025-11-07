@@ -39,8 +39,8 @@ data "aws_iam_policy_document" "connect_s3_policy_document" {
       "s3:DeleteObject"
     ]
     resources = [
-      aws_s3_bucket.call_recordings.arn,
-      "${aws_s3_bucket.call_recordings.arn}/*"
+      var.s3_bucket_arn,
+      "${var.s3_bucket_arn}/*"
     ]
   }
 }

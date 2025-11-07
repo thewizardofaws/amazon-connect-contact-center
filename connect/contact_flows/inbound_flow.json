@@ -1,0 +1,39 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "MainMenu",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 10,
+      "y": 10
+    },
+    "snapToGrid": true
+  },
+  "Actions": [
+    {
+      "Identifier": "MainMenu",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Thank you for calling. Please wait while we connect you to an agent.",
+        "TextType": "text/plain"
+      },
+      "Transitions": {
+        "NextAction": "TransferToQueue",
+        "Errors": {},
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "TransferToQueue",
+      "Type": "TransferToQueue",
+      "Parameters": {
+        "QueueId": "${queue_id}",
+        "QueueName": "Main Queue"
+      },
+      "Transitions": {
+        "NextAction": null,
+        "Errors": {},
+        "Conditions": []
+      }
+    }
+  ]
+}
