@@ -1,0 +1,19 @@
+# AWS Configuration
+aws_region = "us-east-1"
+
+# Amazon Connect Configuration
+connect_instance_alias  = "your-connect-instance-alias"
+connect_instance_name   = "your-connect-instance-name"
+
+# S3 Configuration
+s3_bucket_name = "your-connect-recordings-bucket"
+
+# Environment Configuration
+environment = "dev" # Options: dev, staging, prod
+
+# Instructions:
+# 1. Copy this file to terraform.tfvars
+# 2. Update the values with your actual configuration
+# 3. Ensure S3 bucket name is globally unique
+# 4. Connect instance alias must be unique within your AWS account
+# 5. Do not commit terraform.tfvars to version control (it should be in .gitignore)
