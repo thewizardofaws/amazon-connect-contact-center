@@ -65,6 +65,22 @@ module "main_queue" {
   }
 }
 
+# DynamoDB Table Module
+module "transcriptions_table" {
+  source = "./modules/dynamodb_table"
+  
+  table_name            = "${var.connect_instance_name}-transcriptions"
+  hash_key              = "JobName"
+  hash_key_type         = "S"
+  billing_mode          = "PAY_PER_REQUEST"
+  point_in_time_recovery = true
+  
+  tags = {
+    Environment = var.environment
+    Name        = "Transcriptions Table"
+  }
+}
+
 # Lambda Function Module
 module "transcribe_sentiment_lambda" {
   source = "./modules/lambda_function"
@@ -84,7 +100,7 @@ module "transcribe_sentiment_lambda" {
     MEDIA_FORMAT            = "mp3"
     LANGUAGE_CODE           = "en-US"
     COMPREHEND_LANGUAGE_CODE = "en"
-    DYNAMODB_TABLE_NAME     = "${var.connect_instance_name}-transcriptions"
+    DYNAMODB_TABLE_NAME     = module.transcriptions_table.table_name
     RESULTS_S3_BUCKET       = module.s3_bucket.bucket_id
     TRANSCRIPTION_POLL_INTERVAL = "5"
     MAX_TRANSCRIPTION_WAIT_TIME = "300"
@@ -95,5 +111,23 @@ module "transcribe_sentiment_lambda" {
   tags = {
     Environment = var.environment
     Name        = "Transcribe Sentiment Lambda"
+  }
+}
+
+# Monitoring Module
+module "monitoring" {
+  source = "./modules/monitoring"
+  
+  project_name          = var.connect_instance_name
+  environment           = var.environment
+  
+  alarm_email_addresses = var.monitoring_email_addresses
+  
+  lambda_function_name  = module.transcribe_sentiment_lambda.lambda_function_name
+  connect_instance_id   = module.connect_instance.connect_instance_id
+  s3_bucket_name        = module.s3_bucket.bucket_id
+  
+  tags = {
+    Environment = var.environment
   }
 }

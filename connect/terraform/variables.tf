@@ -49,3 +49,9 @@ variable "connect_instance_name" {
     error_message = "Connect instance name must be 1-100 characters, alphanumeric with hyphens and underscores, and cannot start or end with special characters."
   }
 }
+
+variable "monitoring_email_addresses" {
+  type        = list(string)
+  description = "List of email addresses to receive CloudWatch alarm notifications"
+  default     = []
+}
